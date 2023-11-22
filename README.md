@@ -44,6 +44,7 @@ cette aventure vers une vie plus saine et savoureuse avec FoodAssistant à vos c
 - Retours utilisateurs, pouce rouge/vert pour les recettes
 - Prediction de la disponibilité des aliments
 - Recommandation de recettes en fonction de la disponibilité des aliments
+- Des jauges avec rappel pour les apports hebdomadaires
 
 ## API et datasets :
 
@@ -55,3 +56,4 @@ cette aventure vers une vie plus saine et savoureuse avec FoodAssistant à vos c
 ## Dev :
 - Python 3.10
 - Flask pour la partie web
+- 500 appels par jour pour l'API de recettes
