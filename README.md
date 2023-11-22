@@ -50,5 +50,8 @@ cette aventure vers une vie plus saine et savoureuse avec FoodAssistant à vos c
 - https://app.swaggerhub.com/apis/fdcnal/food-data_central_api/1.0.1#/FDC/getFood , API -> nutriments/aliments
 - https://rapidapi.com/spoonacular/api/recipe-food-nutrition l'API de
   recettes https://rapidapi.com/blog/build-food-website/ avec son tutoriel
-- 
 
+
+## Dev :
+- Python 3.10
+- Flask pour la partie web
