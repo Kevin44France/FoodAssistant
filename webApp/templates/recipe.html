@@ -3,15 +3,16 @@
 {% block body %}
 
 <div style="max-width: 70%; margin: auto; padding-top:3%">
-  <div class="media">
-      <img src="{{recipe['image']}}" class="mr-3" alt="..." width="20%" height="20%">
-      <div class="media-body">
-        <h5 class="mt-0">{{recipe['title']}}</h5>
-        {{recipe['instructions']}}
-          <a href="{{ recipe['sourceUrl'] }}" target="_blank">{{ recipe['sourceUrl'] }}</a>
-      </div>
-  </div><br>
-  {{recipe['inregdientsWidget'] | safe }}<br>
-  {{recipe['equipmentWidget'] | safe}}
+    <div class="media">
+        <img src="{{recipe['image']}}" class="mr-3" alt="..." width="20%" height="20%">
+        <div class="media-body">
+            <h5 class="mt-0">{{recipe['title']}}</h5>
+            {{recipe['instructions']}}
+            <a href="{{ recipe['sourceUrl'] }}" target="_blank">{{ recipe['sourceUrl'] }}</a>
+        </div>
+    </div>
+    <br>
+    {{recipe['inregdientsWidget'] | safe }}<br>
+    {{recipe['equipmentWidget'] | safe}}
 </div>
 {% endblock %}
