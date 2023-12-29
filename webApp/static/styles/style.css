@@ -1,32 +1,115 @@
-/* static/styles/style.css */
-body {
-    background-color: #f8f9fa;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin-top: 50px;
+.recipe-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
 }
 
-h2 {
+.recipe-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.recipe-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.recipe-info {
+    padding: 15px;
+}
+
+.recipe-title {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.recipe-title:hover {
     color: #007bff;
 }
 
-form {
-    max-width: 50%;
-    margin: 0 auto;
+@media (max-width: 768px) {
+    .recipe-container {
+        grid-template-columns: 1fr;
+    }
+}
+.recipe-detail-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.recipe-title {
+    color: #333;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
+.recipe-image-container {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+.recipe-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
+
+.recipe-meta {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recipe-meta span {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 0.9em;
+    background: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.ingredients-list li {
+    background: #f8f8f8;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.instructions {
+    margin-bottom: 20px;
+}
+
+.source-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.source-link a {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .recipe-detail-container {
+        padding: 10px;
+    }
+}
+

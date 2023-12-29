@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
-{% block title %} Recipes searcher {% endblock %}
 {% block body %}
-
-<h2>
-    It's time for cooking! What do you have in the fridge? <br>
-</h2>
-<br><br>
-<form action="/recipes">
-    <div>
-        <input type="text" class="form-control" placeholder="Apple, flour, sugar" aria-label="Ingridients" name="ingridients">
-        <button type="submit">Search</button>
+<div class="recipe-container">
+    {% for recipe in recipes %}
+    <div class="recipe-card">
+        <a href="{{ url_for('recipe_detail', recipe_id=recipe['id']) }}">
+            <img src="{{ recipe['image'] }}" alt="{{ recipe['title'] }}" class="recipe-image">
+        </a>
+        <div class="recipe-info">
+            <h5>
+                <a href="{{ url_for('recipe_detail', recipe_id=recipe['id']) }}" class="recipe-title">{{ recipe['title'] }}</a>
+            </h5>
+            <!-- Autres détails de la recette -->
+        </div>
     </div>
-</form>
+    {% endfor %}
+</div>
 {% endblock %}
