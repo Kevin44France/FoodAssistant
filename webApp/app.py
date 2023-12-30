@@ -43,5 +43,10 @@ def recipe_detail(recipe_id):
         return "Recette non trouvée", 404
 
 
+@app.route('/user')
+def user_profile():
+    return render_template('user.html')
+
+
 if __name__ == '__main__':
     app.run()
