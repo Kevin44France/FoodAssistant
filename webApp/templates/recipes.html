@@ -29,5 +29,15 @@
     <div class="source-link">
         <a href="{{ recipe['sourceUrl'] }}" target="_blank">Full recipe here</a>
     </div>
+{% if nutrition %}
+    <!-- Display nutrition information here -->
+    <div class="nutrition-info">
+        <p>Calories: {{ nutrition.calories }}</p>
+        <p>Carbs: {{ nutrition.carbs }}</p>
+        <p>Fat: {{ nutrition.fat }}</p>
+        <p>Protein: {{ nutrition.protein }}</p>
+        <!-- Add more fields as necessary -->
+    </div>
+{% endif %}
 </div>
 {% endblock %}
