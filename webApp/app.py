@@ -1,7 +1,6 @@
 import json
 
 from flask import Flask, request, render_template, redirect, url_for
-import requests
 
 app = Flask(__name__)
 
@@ -18,11 +17,26 @@ def find_recipe_by_id(recipe_id):
     return None  # Retourne None si aucune recette n'est trouvée
 
 
+def meets_dietary_requirements(recipe, restrictions):
+    # Check each recipe against the dietary restrictions
+    return all(recipe.get(restriction, False) for restriction in restrictions)
+
+
 @app.route('/')
 def search_page():
+    # Load user dietary restrictions
+    with open('../Data/user_profile.json', 'r') as user_file:
+        user_profile = json.load(user_file)
+    dietary_restrictions = user_profile['dietaryRestrictions']
+
+    # Load recipes
     with open('../Data/dataset.json', 'r') as file:
         data = json.load(file)
-    return render_template('search.html', recipes=data['recipes'])
+
+    # Filter recipes based on dietary restrictions
+    filtered_recipes = [recipe for recipe in data['recipes'] if meets_dietary_requirements(recipe, dietary_restrictions)]
+
+    return render_template('search.html', recipes=filtered_recipes)
 
 
 @app.route('/recipe/<int:recipe_id>')
@@ -44,15 +58,14 @@ def recipe_detail(recipe_id):
 
         if nutrition_info:
             # Pass both recipe and nutrition information to the template
-            return render_template('recipes.html', recipe=recipe, nutrition=nutrition_info['nutrition'][0])  # Assuming you want the first item in nutrition info
+            return render_template('recipes.html', recipe=recipe, nutrition=nutrition_info['nutrition'][
+                0])  # Assuming you want the first item in nutrition info
         else:
             # Recipe is found but no nutrition info is found for this recipe
             return render_template('recipes.html', recipe=recipe, nutrition=None)
     else:
         # Recipe ID not found
         return "Recipe not found", 404
-
-
 
 
 @app.route('/user', methods=['GET', 'POST'])
@@ -66,7 +79,8 @@ def user_profile():
             'lastName': request.form.get('lastName'),
             'height': request.form.get('height'),
             'age': request.form.get('age'),
-            'dietaryRestrictions': request.form.getlist('dietaryRestrictions')  # Cela recueille toutes les restrictions cochées
+            'dietaryRestrictions': request.form.getlist('dietaryRestrictions')
+            # Cela recueille toutes les restrictions cochées
         }
 
         # Écrire les données dans le fichier JSON

@@ -33,6 +33,22 @@
                         <div class="form-group">
                             <label for="dietaryRestrictions">Restrictions alimentaires:</label><br>
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vegetarian" id="vegetarian"
+                                       name="dietaryRestrictions" {% if 'vegetarian' in
+                                user_data.get('dietaryRestrictions', []) %}checked{% endif %}>
+                                <label class="form-check-label" for="vegetarian">
+                                    Végétarien
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vegan" id="vegan"
+                                       name="dietaryRestrictions" {% if 'vegan' in user_data.get('dietaryRestrictions',
+                                []) %}checked{% endif %}>
+                                <label class="form-check-label" for="vegan">
+                                    Végétalien
+                                </label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="glutenFree" id="glutenFree"
                                        name="dietaryRestrictions" {% if 'glutenFree' in
                                 user_data.get('dietaryRestrictions', []) %}checked{% endif %}>
@@ -41,15 +57,15 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="peanutFree" id="peanutFree"
-                                       name="dietaryRestrictions" {% if 'peanutFree' in
+                                <input class="form-check-input" type="checkbox" value="dairyFree" id="dairyFree"
+                                       name="dietaryRestrictions" {% if 'dairyFree' in
                                 user_data.get('dietaryRestrictions', []) %}checked{% endif %}>
-                                <label class="form-check-label" for="peanutFree">
-                                    Sans arachides
+                                <label class="form-check-label" for="dairyFree">
+                                    Sans produits laitiers
                                 </label>
                             </div>
-                            <!-- Ajoutez plus de cases à cocher selon les besoins -->
                         </div>
+
                         <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-save"></i> Mettre à jour le
                             profil
                         </button>
@@ -63,21 +79,27 @@
     <div class="mt-3">
         <label for="calories">Calories:</label>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                 aria-valuemax="100">50%
+            </div>
         </div>
     </div>
 
     <div class="mt-3">
         <label for="proteins">Protéines:</label>
         <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+            <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75"
+                 aria-valuemin="0" aria-valuemax="100">75%
+            </div>
         </div>
     </div>
 
     <div class="mt-3">
         <label for="fats">Lipides:</label>
         <div class="progress">
-            <div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+            <div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0"
+                 aria-valuemax="100">30%
+            </div>
         </div>
     </div>
 </div>

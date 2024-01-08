@@ -3,8 +3,5 @@
     "lastName": "Sen",
     "height": "182",
     "age": "22",
-    "dietaryRestrictions": [
-        "glutenFree",
-        "peanutFree"
-    ]
+    "dietaryRestrictions": []
 }
