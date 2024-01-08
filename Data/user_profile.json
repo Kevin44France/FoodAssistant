@@ -1,7 +1,1 @@
-{
-    "firstName": "Kevin",
-    "lastName": "Sen",
-    "height": "182",
-    "age": "22",
-    "dietaryRestrictions": []
-}
+{"firstName": "Kevin", "lastName": "Sen", "height": "182", "age": "22", "dietaryRestrictions": [], "calories": 0}

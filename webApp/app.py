@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 
 app = Flask(__name__)
 
@@ -34,7 +34,8 @@ def search_page():
         data = json.load(file)
 
     # Filter recipes based on dietary restrictions
-    filtered_recipes = [recipe for recipe in data['recipes'] if meets_dietary_requirements(recipe, dietary_restrictions)]
+    filtered_recipes = [recipe for recipe in data['recipes'] if
+                        meets_dietary_requirements(recipe, dietary_restrictions)]
 
     return render_template('search.html', recipes=filtered_recipes)
 
@@ -99,6 +100,29 @@ def user_profile():
             user_data = {}
 
         return render_template('user.html', user_data=user_data)
+
+
+@app.route('/update_calories', methods=['POST'])
+def update_calories():
+    try:
+        # Load the current user profile data
+        with open('../Data/user_profile.json', 'r') as file:
+            user_profile = json.load(file)
+
+        # Get the change in calories from the AJAX request
+        change = request.json.get('change', 0)
+
+        # Update the calories value, ensuring it stays within 0-100%
+        user_profile['calories'] = max(0, min(100, user_profile.get('calories', 50) + change))
+
+        # Save the updated profile
+        with open('../Data/user_profile.json', 'w') as file:
+            json.dump(user_profile, file)
+
+        return jsonify(success=True, new_calories=user_profile['calories'])
+
+    except Exception as e:
+        return jsonify(success=False, error=str(e))
 
 
 if __name__ == '__main__':

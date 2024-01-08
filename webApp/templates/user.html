@@ -79,11 +79,15 @@
     <div class="mt-3">
         <label for="calories">Calories:</label>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                 aria-valuemax="100">50%
+            <div class="progress-bar" role="progressbar"
+                 style="width: {{ user_data.get('calories', 50) }}%"
+                 aria-valuenow="{{ user_data.get('calories', 50) }}"
+                 aria-valuemin="0" aria-valuemax="100">
+                {{ user_data.get('calories', 50) }}%
             </div>
         </div>
     </div>
+
 
     <div class="mt-3">
         <label for="proteins">Protéines:</label>
@@ -102,5 +106,50 @@
             </div>
         </div>
     </div>
+
+    <!-- Buttons to adjust the calorie percentage -->
+    <div class="mt-3">
+        <button type="button" class="btn btn-secondary" onclick="updateCalories(-10)">-10%</button>
+        <button type="button" class="btn btn-secondary" onclick="updateCalories(10)">+10%</button>
+    </div>
+    <div class="mt-3">
+        <button type="button" class="btn btn-primary" onclick="startNewDay()">Nouvelle Journée</button>
+        <p id="newDayMessage"></p> <!-- Message area -->
+    </div>
+
+    <!-- Script to handle button clicks -->
+    <script>
+        function updateCalories(change) {
+            fetch('/update_calories', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ change: change }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Update the progress bar and text with the new calorie value
+                    var progressBar = document.querySelector('.progress-bar');
+                    progressBar.style.width = data.new_calories + '%';
+                    progressBar.textContent = data.new_calories + '%';
+                } else {
+                    // Handle errors
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        function startNewDay() {
+            // Reset the calories in user_data and update the progress bar
+            updateCalories(-100); // Adjust the calorie reset logic as needed
+            // Display the new day message
+            document.getElementById('newDayMessage').innerText = "Let's start a new day together!";
+        }
+    </script>
+
 </div>
 {% endblock %}
