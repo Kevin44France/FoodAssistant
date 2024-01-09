@@ -1,1 +1,10 @@
-{"firstName": "Kevin", "lastName": "Sen", "height": "182", "age": "22", "dietaryRestrictions": [], "calories": 0}
+{
+    "firstName": "Kevin",
+    "lastName": "Sen",
+    "sex": "Female",
+    "age": "33",
+    "dietaryRestrictions": [
+        "vegetarian",
+        "glutenFree"
+    ]
+}

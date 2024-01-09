@@ -22,6 +22,21 @@ def meets_dietary_requirements(recipe, restrictions):
     return all(recipe.get(restriction, False) for restriction in restrictions)
 
 
+def determine_age_group(age):
+    if age <= 8:
+        return "4-8"
+    elif age <= 13:
+        return "9-13"
+    elif age <= 18:
+        return "14-18"
+    elif age <= 30:
+        return "19-30"
+    elif age <= 50:
+        return "31-50"
+    else:
+        return "51+"
+
+
 @app.route('/')
 def search_page():
     # Load user dietary restrictions
@@ -71,14 +86,15 @@ def recipe_detail(recipe_id):
 
 @app.route('/user', methods=['GET', 'POST'])
 def user_profile():
-    user_data_path = '../Data/user_profile.json'  # Le chemin vers votre fichier JSON
+    user_data_path = '../Data/user_profile.json'
+    nutrition_data_path = '../Data/daily_nutrition.json'
+
 
     if request.method == 'POST':
-        # Recueillir les données du formulaire
         user_data = {
             'firstName': request.form.get('firstName'),
             'lastName': request.form.get('lastName'),
-            'height': request.form.get('height'),
+            'sex': request.form.get('sex'),
             'age': request.form.get('age'),
             'dietaryRestrictions': request.form.getlist('dietaryRestrictions')
             # Cela recueille toutes les restrictions cochées
@@ -87,10 +103,13 @@ def user_profile():
         # Écrire les données dans le fichier JSON
         with open(user_data_path, 'w') as file:
             json.dump(user_data, file, indent=4)
-
         return redirect(url_for('user_profile'))
 
     else:
+
+        # Charger les données nutritionnelles
+        with open(nutrition_data_path, 'r') as file:
+            nutrition_data = json.load(file)
         # Lire les données existantes
         try:
             with open(user_data_path, 'r') as file:
@@ -99,7 +118,9 @@ def user_profile():
             # Si le fichier n'existe pas ou est vide
             user_data = {}
 
-        return render_template('user.html', user_data=user_data)
+        age_group = determine_age_group(int(user_data.get('age', 0)))
+
+        return render_template('user.html', user_data=user_data, nutrition_data=nutrition_data, age_group=age_group)
 
 
 @app.route('/update_calories', methods=['POST'])

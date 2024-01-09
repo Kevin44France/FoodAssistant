@@ -1,0 +1,146 @@
+{
+  "4-8": {
+    "Female": {
+      "Calories": 1200,
+      "Calcium": 1000,
+      "Iron": 10,
+      "Magnesium": 130,
+      "Potassium": 3800,
+      "Zinc": 5,
+      "Vitamin A": 400,
+      "Vitamin E": 7,
+      "Vitamin C": 15
+    },
+    "Male": {
+      "Calories": 1400,
+      "Calcium": 1000,
+      "Iron": 10,
+      "Magnesium": 130,
+      "Potassium": 3800,
+      "Zinc": 5,
+      "Vitamin A": 400,
+      "Vitamin E": 7,
+      "Vitamin C": 25
+    }
+  },
+  "9-13": {
+    "Female": {
+      "Calories": 1600,
+      "Calcium": 1300,
+      "Iron": 8,
+      "Magnesium": 240,
+      "Potassium": 4500,
+      "Zinc": 8,
+      "Vitamin A": 600,
+      "Vitamin E": 11,
+      "Vitamin C": 45
+    },
+    "Male": {
+      "Calories": 1800,
+      "Calcium": 1300,
+      "Iron": 8,
+      "Magnesium": 240,
+      "Potassium": 4500,
+      "Zinc": 8,
+      "Vitamin A": 600,
+      "Vitamin E": 11,
+      "Vitamin C": 45
+    }
+  },
+  "14-18": {
+    "Female": {
+      "Calories": 1800,
+      "Calcium": 1300,
+      "Iron": 15,
+      "Magnesium": 360,
+      "Potassium": 4700,
+      "Zinc": 9,
+      "Vitamin A": 700,
+      "Vitamin E": 15,
+      "Vitamin C": 65
+    },
+    "Male": {
+      "Calories": 2200,
+      "Calcium": 1300,
+      "Iron": 11,
+      "Magnesium": 410,
+      "Potassium": 4700,
+      "Zinc": 11,
+      "Vitamin A": 900,
+      "Vitamin E": 15,
+      "Vitamin C": 75
+    }
+  },
+  "19-30": {
+    "Female": {
+      "Calories": 2000,
+      "Calcium": 1000,
+      "Iron": 18,
+      "Magnesium": 310,
+      "Potassium": 4700,
+      "Zinc": 8,
+      "Vitamin A": 700,
+      "Vitamin E": 15,
+      "Vitamin C": 75
+    },
+    "Male": {
+      "Calories": 2400,
+      "Calcium": 1000,
+      "Iron": 8,
+      "Magnesium": 400,
+      "Potassium": 4700,
+      "Zinc": 11,
+      "Vitamin A": 900,
+      "Vitamin E": 15,
+      "Vitamin C": 90
+    }
+  },
+  "31-50": {
+    "Female": {
+      "Calories": 1800,
+      "Calcium": 1000,
+      "Iron": 18,
+      "Magnesium": 320,
+      "Potassium": 4700,
+      "Zinc": 8,
+      "Vitamin A": 700,
+      "Vitamin E": 15,
+      "Vitamin C": 75
+    },
+    "Male": {
+      "Calories": 2200,
+      "Calcium": 1000,
+      "Iron": 8,
+      "Magnesium": 420,
+      "Potassium": 4700,
+      "Zinc": 11,
+      "Vitamin A": 900,
+      "Vitamin E": 15,
+      "Vitamin C": 90
+    }
+  },
+  "51+": {
+    "Female": {
+      "Calories": 1600,
+      "Calcium": 1200,
+      "Iron": 8,
+      "Magnesium": 320,
+      "Potassium": 4700,
+      "Zinc": 8,
+      "Vitamin A": 700,
+      "Vitamin E": 15,
+      "Vitamin C": 90
+    },
+    "Male": {
+      "Calories": 2000,
+      "Calcium": 1200,
+      "Iron": 8,
+      "Magnesium": 420,
+      "Potassium": 4700,
+      "Zinc": 11,
+      "Vitamin A": 900,
+      "Vitamin E": 15,
+      "Vitamin C": 90
+    }
+  }
+}

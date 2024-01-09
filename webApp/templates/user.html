@@ -2,6 +2,11 @@
 
 {% block body %}
 <div class="container mt-5">
+    {% if confirmation %}
+    <div class="alert alert-success" role="alert">
+        Votre profil a été mis à jour avec succès !
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
@@ -21,10 +26,16 @@
                                    placeholder="Entrez votre nom" value="{{ user_data.get('lastName', '') }}">
                         </div>
                         <div class="form-group">
-                            <label for="height">Taille (cm)</label>
-                            <input type="number" class="form-control" id="height" name="height"
-                                   placeholder="Entrez votre taille en cm" value="{{ user_data.get('height', '') }}">
+                            <label for="sex">Sexe</label>
+                            <select class="form-control" id="sex" name="sex">
+                                <option value="">Sélectionnez...</option>
+                                <option value="Female" {% if user_data.get(
+                                'sex') == 'Female' %}selected{% endif %}>Femme</option>
+                                <option value="Male" {% if user_data.get(
+                                'sex') == 'Male' %}selected{% endif %}>Homme</option>
+                            </select>
                         </div>
+
                         <div class="form-group">
                             <label for="age">Âge</label>
                             <input type="number" class="form-control" id="age" name="age" placeholder="Entrez votre âge"
@@ -79,11 +90,14 @@
     <div class="mt-3">
         <label for="calories">Calories:</label>
         <div class="progress">
+            {% set sex = 'Male' if user_data.get('sex', 'Male') == 'Male' else 'Female' %}
+            {% set recommended_calories = nutrition_data.get(age_group, {}).get(sex, {}).get('Calories', 0) %}
+
             <div class="progress-bar" role="progressbar"
-                 style="width: {{ user_data.get('calories', 50) }}%"
-                 aria-valuenow="{{ user_data.get('calories', 50) }}"
-                 aria-valuemin="0" aria-valuemax="100">
-                {{ user_data.get('calories', 50) }}%
+                 style="width: {{ (user_data.get('calories', 0) / recommended_calories) * 100 }}%"
+                 aria-valuenow="{{ user_data.get('calories', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_calories }}">
+                {{ user_data.get('calories', 0) }} / {{ recommended_calories }}
             </div>
         </div>
     </div>
@@ -107,10 +121,10 @@
         </div>
     </div>
 
-    <!-- Buttons to adjust the calorie percentage -->
+    <!-- Buttons to adjust calorie count -->
     <div class="mt-3">
-        <button type="button" class="btn btn-secondary" onclick="updateCalories(-10)">-10%</button>
-        <button type="button" class="btn btn-secondary" onclick="updateCalories(10)">+10%</button>
+        <button type="button" class="btn btn-secondary" onclick="updateCalories(-100)">-100</button>
+        <button type="button" class="btn btn-secondary" onclick="updateCalories(100)">+100</button>
     </div>
     <div class="mt-3">
         <button type="button" class="btn btn-primary" onclick="startNewDay()">Nouvelle Journée</button>
@@ -120,35 +134,33 @@
     <!-- Script to handle button clicks -->
     <script>
         function updateCalories(change) {
-            fetch('/update_calories', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ change: change }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    // Update the progress bar and text with the new calorie value
-                    var progressBar = document.querySelector('.progress-bar');
-                    progressBar.style.width = data.new_calories + '%';
-                    progressBar.textContent = data.new_calories + '%';
-                } else {
-                    // Handle errors
-                    console.error('Error:', data.error);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            // Obtenez l'actuelle valeur des calories
+            var currentCalories = parseInt(document.querySelector('.progress-bar').getAttribute('aria-valuenow'));
+
+            // Calculez les nouvelles calories
+            var newCalories = Math.max(0, currentCalories + change); // Assurez-vous que les calories ne deviennent pas négatives
+
+            // Mettez à jour la barre de progression et le texte avec la nouvelle valeur des calories
+            var recommendedCalories = {{ recommended_calories }}; // Assurez-vous que cette variable est définie dans le template
+            var progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = (newCalories / recommendedCalories) * 100 + '%';
+            progressBar.setAttribute('aria-valuenow', newCalories);
+            progressBar.textContent = newCalories + ' / ' + recommendedCalories;
+
+            // Envoie la nouvelle valeur des calories au serveur (si nécessaire)
+            // ...
         }
-        function startNewDay() {
-            // Reset the calories in user_data and update the progress bar
-            updateCalories(-100); // Adjust the calorie reset logic as needed
-            // Display the new day message
-            document.getElementById('newDayMessage').innerText = "Let's start a new day together!";
-        }
+function startNewDay() {
+    // Obtenir la valeur actuelle des calories
+    var currentCalories = parseInt(document.querySelector('.progress-bar').getAttribute('aria-valuenow'));
+
+    // Mettre à jour la valeur des calories pour qu'elle soit zéro
+    updateCalories(-currentCalories);
+
+    // Afficher le message de nouvelle journée
+    document.getElementById('newDayMessage').innerText = "Let's start a new day together!";
+}
+
     </script>
 
 </div>
