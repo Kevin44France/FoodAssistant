@@ -2,9 +2,6 @@
     "firstName": "Kevin",
     "lastName": "Sen",
     "sex": "Female",
-    "age": "33",
-    "dietaryRestrictions": [
-        "vegetarian",
-        "glutenFree"
-    ]
+    "age": "49",
+    "dietaryRestrictions": []
 }
