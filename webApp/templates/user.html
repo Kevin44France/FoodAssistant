@@ -145,114 +145,117 @@
         </div>
     </div>
 
-    <div class="mt-3">
-        <label for="calcium">Calcium:</label>
-        <div class="progress">
-            {% set recommended_calcium = nutrition_data.get(age_group, {}).get(sex, {}).get('Calcium', 0) %}
-            <div class="progress-bar" role="progressbar"
-                 style="width: {{ (user_data.get('calcium', 0) / recommended_calcium) * 100 }}%"
-                 aria-valuenow="{{ user_data.get('calcium', 0) }}"
-                 aria-valuemin="0" aria-valuemax="{{ recommended_calcium }}">
-                {{ user_data.get('calcium', 0) }} / {{ recommended_calcium }} mg
+    <div id="additional-nutrients" class="hidden">
+        <div class="mt-3">
+            <label for="calcium">Calcium:</label>
+            <div class="progress">
+                {% set recommended_calcium = nutrition_data.get(age_group, {}).get(sex, {}).get('Calcium', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('calcium', 0) / recommended_calcium) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('calcium', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_calcium }}">
+                    {{ user_data.get('calcium', 0) }} / {{ recommended_calcium }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="iron">Fer:</label>
+            <div class="progress">
+                {% set recommended_iron = nutrition_data.get(age_group, {}).get(sex, {}).get('Iron', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('iron', 0) / recommended_iron) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('iron', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_iron }}">
+                    {{ user_data.get('iron', 0) }} / {{ recommended_iron }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="magnesium">Magnésium:</label>
+            <div class="progress">
+                {% set recommended_magnesium = nutrition_data.get(age_group, {}).get(sex, {}).get('Magnesium', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('magnesium', 0) / recommended_magnesium) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('magnesium', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_magnesium }}">
+                    {{ user_data.get('magnesium', 0) }} / {{ recommended_magnesium }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="potassium">Potassium:</label>
+            <div class="progress">
+                {% set recommended_potassium = nutrition_data.get(age_group, {}).get(sex, {}).get('Potassium', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('potassium', 0) / recommended_potassium) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('potassium', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_potassium }}">
+                    {{ user_data.get('potassium', 0) }} / {{ recommended_potassium }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="zinc">Zinc:</label>
+            <div class="progress">
+                {% set recommended_zinc = nutrition_data.get(age_group, {}).get(sex, {}).get('Zinc', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('zinc', 0) / recommended_zinc) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('zinc', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_zinc }}">
+                    {{ user_data.get('zinc', 0) }} / {{ recommended_zinc }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="vitaminA">Vitamine A:</label>
+            <div class="progress">
+                {% set recommended_vitamin_a = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin A', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('vitamin A', 0) / recommended_vitamin_a) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('vitamin A', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_a }}">
+                    {{ user_data.get('vitamin A', 0) }} / {{ recommended_vitamin_a }} mcg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="vitaminE">Vitamine E:</label>
+            <div class="progress">
+                {% set recommended_vitamin_e = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin E', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('vitamin E', 0) / recommended_vitamin_e) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('vitamin E', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_e }}">
+                    {{ user_data.get('vitamin E', 0) }} / {{ recommended_vitamin_e }} mg
+                </div>
+            </div>
+        </div>
+    
+        <div class="mt-3">
+            <label for="vitaminC">Vitamine C:</label>
+            <div class="progress">
+                {% set recommended_vitamin_c = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin C', 0) %}
+                <div class="progress-bar" role="progressbar"
+                     style="width: {{ (user_data.get('vitamin C', 0) / recommended_vitamin_c) * 100 }}%"
+                     aria-valuenow="{{ user_data.get('vitamin C', 0) }}"
+                     aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_c }}">
+                    {{ user_data.get('vitamin C', 0) }} / {{ recommended_vitamin_c }} mg
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="mt-3">
-        <label for="iron">Fer:</label>
-        <div class="progress">
-            {% set recommended_iron = nutrition_data.get(age_group, {}).get(sex, {}).get('Iron', 0) %}
-            <div class="progress-bar" role="progressbar"
-                 style="width: {{ (user_data.get('iron', 0) / recommended_iron) * 100 }}%"
-                 aria-valuenow="{{ user_data.get('iron', 0) }}"
-                 aria-valuemin="0" aria-valuemax="{{ recommended_iron }}">
-                {{ user_data.get('iron', 0) }} / {{ recommended_iron }} mg
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-3">
-        <label for="magnesium">Magnésium:</label>
-        <div class="progress">
-            {% set recommended_magnesium = nutrition_data.get(age_group, {}).get(sex, {}).get('Magnesium', 0) %}
-            <div class="progress-bar" role="progressbar"
-                 style="width: {{ (user_data.get('magnesium', 0) / recommended_magnesium) * 100 }}%"
-                 aria-valuenow="{{ user_data.get('magnesium', 0) }}"
-                 aria-valuemin="0" aria-valuemax="{{ recommended_magnesium }}">
-                {{ user_data.get('magnesium', 0) }} / {{ recommended_magnesium }} mg
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-3">
-        <label for="potassium">Potassium:</label>
-        <div class="progress">
-            {% set recommended_potassium = nutrition_data.get(age_group, {}).get(sex, {}).get('Potassium', 0) %}
-            <div class="progress-bar" role="progressbar"
-                 style="width: {{ (user_data.get('potassium', 0) / recommended_potassium) * 100 }}%"
-                 aria-valuenow="{{ user_data.get('potassium', 0) }}"
-                 aria-valuemin="0" aria-valuemax="{{ recommended_potassium }}">
-                {{ user_data.get('potassium', 0) }} / {{ recommended_potassium }} mg
-            </div>
-        </div>
-    </div>
-
-<div class="mt-3">
-    <label for="zinc">Zinc:</label>
-    <div class="progress">
-        {% set recommended_zinc = nutrition_data.get(age_group, {}).get(sex, {}).get('Zinc', 0) %}
-        <div class="progress-bar" role="progressbar"
-             style="width: {{ (user_data.get('zinc', 0) / recommended_zinc) * 100 }}%"
-             aria-valuenow="{{ user_data.get('zinc', 0) }}"
-             aria-valuemin="0" aria-valuemax="{{ recommended_zinc }}">
-            {{ user_data.get('zinc', 0) }} / {{ recommended_zinc }} mg
-        </div>
-    </div>
-</div>
-
-<div class="mt-3">
-    <label for="vitaminA">Vitamine A:</label>
-    <div class="progress">
-        {% set recommended_vitamin_a = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin A', 0) %}
-        <div class="progress-bar" role="progressbar"
-             style="width: {{ (user_data.get('vitamin A', 0) / recommended_vitamin_a) * 100 }}%"
-             aria-valuenow="{{ user_data.get('vitamin A', 0) }}"
-             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_a }}">
-            {{ user_data.get('vitamin A', 0) }} / {{ recommended_vitamin_a }} mcg
-        </div>
-    </div>
-</div>
-
-<div class="mt-3">
-    <label for="vitaminE">Vitamine E:</label>
-    <div class="progress">
-        {% set recommended_vitamin_e = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin E', 0) %}
-        <div class="progress-bar" role="progressbar"
-             style="width: {{ (user_data.get('vitamin E', 0) / recommended_vitamin_e) * 100 }}%"
-             aria-valuenow="{{ user_data.get('vitamin E', 0) }}"
-             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_e }}">
-            {{ user_data.get('vitamin E', 0) }} / {{ recommended_vitamin_e }} mg
-        </div>
-    </div>
-</div>
-
-<div class="mt-3">
-    <label for="vitaminC">Vitamine C:</label>
-    <div class="progress">
-        {% set recommended_vitamin_c = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin C', 0) %}
-        <div class="progress-bar" role="progressbar"
-             style="width: {{ (user_data.get('vitamin C', 0) / recommended_vitamin_c) * 100 }}%"
-             aria-valuenow="{{ user_data.get('vitamin C', 0) }}"
-             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_c }}">
-            {{ user_data.get('vitamin C', 0) }} / {{ recommended_vitamin_c }} mg
-        </div>
-    </div>
-</div>
-
+    <button id="show-more" class="btn btn-primary mt-3 mb-3">Afficher plus</button>
 
     <div class="mt-3">
         <form method="POST" action="{{ url_for('update_nutrition_route') }}">
-            <input type="number" name="change" placeholder="Nombre">
+            <input type="number" name="change" placeholder="Calories">
             <input type="hidden" name="nutrient" value="calories"> <!-- changez pour proteins ou fats selon le cas -->
             <button type="submit" class="btn btn-secondary">Modifier</button>
         </form>
@@ -260,18 +263,33 @@
 
     <div class="mt-3">
         <form method="POST" action="{{ url_for('update_nutrition_route') }}">
-            <input type="number" name="change" placeholder="Nombre">
+            <input type="number" name="change" placeholder="Protéines">
             <input type="hidden" name="nutrient" value="proteins"> <!-- changez pour proteins ou fats selon le cas -->
             <button type="submit" class="btn btn-secondary">Modifier</button>
         </form>
     </div>
 
     <!-- Formulaire pour réinitialiser les valeurs nutritionnelles -->
-    <div class="mt-3">
+    <div class="mt-3 mb-3">
         <form method="POST" action="{{ url_for('reset_nutrition_route') }}">
             <button type="submit" class="btn btn-primary">Nouvelle Journée</button>
         </form>
     </div>
+
+    <script>
+    document.getElementById('show-more').addEventListener('click', function () {
+        var container = document.getElementById('additional-nutrients');
+        var button = document.getElementById('show-more');
+
+        container.classList.toggle('hidden');
+
+        if (button.innerText === 'Afficher plus') {
+            button.innerText = 'Afficher moins';
+        } else {
+            button.innerText = 'Afficher plus';
+        }
+    });
+    </script>
 
 </div>
 {% endblock %}

@@ -38,22 +38,26 @@ def determine_age_group(age):
 
 
 @app.route('/')
-def search_page():
-    # Load user dietary restrictions
+@app.route('/page/<int:page>')
+def search_page(page=1):
+    per_page = 18  # Nombre de recettes par page
     with open('../Data/user_profile.json', 'r') as user_file:
         user_profile = json.load(user_file)
     dietary_restrictions = user_profile['dietaryRestrictions']
 
-    # Load recipes
     with open('../Data/dataset.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # Filter recipes based on dietary restrictions
+    # Filtrer les recettes en fonction des restrictions alimentaires
     filtered_recipes = [recipe for recipe in data['recipes'] if
                         meets_dietary_requirements(recipe, dietary_restrictions)]
 
-    return render_template('search.html', recipes=filtered_recipes)
+    # Pagination
+    total_recipes = len(filtered_recipes)
+    total_pages = -(-total_recipes // per_page)  # Calcul du nombre total de pages
+    paginated_recipes = filtered_recipes[(page-1)*per_page : page*per_page]
 
+    return render_template('search.html', recipes=paginated_recipes, page=page, total_pages=total_pages)
 
 @app.route('/recipe/<int:recipe_id>')
 def recipe_detail(recipe_id):
