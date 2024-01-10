@@ -106,8 +106,13 @@
     <div class="mt-3">
         <label for="proteins">Protéines:</label>
         <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75"
-                 aria-valuemin="0" aria-valuemax="100">75%
+            {% set recommended_protein = nutrition_data.get(age_group, {}).get(sex, {}).get('Protein', 0) %}
+            {% set protein_percentage = (user_data.get('proteins', 0) / recommended_protein) * 100 %}
+            <div class="progress-bar bg-success" role="progressbar"
+                 style="width: {{ protein_percentage }}%"
+                 aria-valuenow="{{ user_data.get('proteins', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_protein }}">
+                {{ protein_percentage|round(2) }}%
             </div>
         </div>
     </div>
@@ -115,53 +120,158 @@
     <div class="mt-3">
         <label for="fats">Lipides:</label>
         <div class="progress">
-            <div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0"
-                 aria-valuemax="100">30%
+            {% set recommended_fat = nutrition_data.get(age_group, {}).get(sex, {}).get('Fat', 0) %}
+            {% set fat_percentage = (user_data.get('fats', 0) / recommended_fat) * 100 %}
+            <div class="progress-bar bg-info" role="progressbar"
+                 style="width: {{ fat_percentage }}%"
+                 aria-valuenow="{{ user_data.get('fats', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_fat }}">
+                {{ fat_percentage|round(2) }}%
             </div>
         </div>
     </div>
 
-    <!-- Buttons to adjust calorie count -->
     <div class="mt-3">
-        <button type="button" class="btn btn-secondary" onclick="updateCalories(-100)">-100</button>
-        <button type="button" class="btn btn-secondary" onclick="updateCalories(100)">+100</button>
+        <label for="carbs">Glucides:</label>
+        <div class="progress">
+            {% set recommended_carbs = nutrition_data.get(age_group, {}).get(sex, {}).get('Carbs', 0) %}
+            {% set carbs_percentage = (user_data.get('carbs', 0) / recommended_carbs) * 100 %}
+            <div class="progress-bar bg-warning" role="progressbar"
+                 style="width: {{ carbs_percentage }}%"
+                 aria-valuenow="{{ user_data.get('carbs', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_carbs }}">
+                {{ carbs_percentage|round(2) }}%
+            </div>
+        </div>
     </div>
+
     <div class="mt-3">
-        <button type="button" class="btn btn-primary" onclick="startNewDay()">Nouvelle Journée</button>
-        <p id="newDayMessage"></p> <!-- Message area -->
+        <label for="calcium">Calcium:</label>
+        <div class="progress">
+            {% set recommended_calcium = nutrition_data.get(age_group, {}).get(sex, {}).get('Calcium', 0) %}
+            <div class="progress-bar" role="progressbar"
+                 style="width: {{ (user_data.get('calcium', 0) / recommended_calcium) * 100 }}%"
+                 aria-valuenow="{{ user_data.get('calcium', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_calcium }}">
+                {{ user_data.get('calcium', 0) }} / {{ recommended_calcium }} mg
+            </div>
+        </div>
     </div>
 
-    <!-- Script to handle button clicks -->
-    <script>
-        function updateCalories(change) {
-            // Obtenez l'actuelle valeur des calories
-            var currentCalories = parseInt(document.querySelector('.progress-bar').getAttribute('aria-valuenow'));
+    <div class="mt-3">
+        <label for="iron">Fer:</label>
+        <div class="progress">
+            {% set recommended_iron = nutrition_data.get(age_group, {}).get(sex, {}).get('Iron', 0) %}
+            <div class="progress-bar" role="progressbar"
+                 style="width: {{ (user_data.get('iron', 0) / recommended_iron) * 100 }}%"
+                 aria-valuenow="{{ user_data.get('iron', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_iron }}">
+                {{ user_data.get('iron', 0) }} / {{ recommended_iron }} mg
+            </div>
+        </div>
+    </div>
 
-            // Calculez les nouvelles calories
-            var newCalories = Math.max(0, currentCalories + change); // Assurez-vous que les calories ne deviennent pas négatives
+    <div class="mt-3">
+        <label for="magnesium">Magnésium:</label>
+        <div class="progress">
+            {% set recommended_magnesium = nutrition_data.get(age_group, {}).get(sex, {}).get('Magnesium', 0) %}
+            <div class="progress-bar" role="progressbar"
+                 style="width: {{ (user_data.get('magnesium', 0) / recommended_magnesium) * 100 }}%"
+                 aria-valuenow="{{ user_data.get('magnesium', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_magnesium }}">
+                {{ user_data.get('magnesium', 0) }} / {{ recommended_magnesium }} mg
+            </div>
+        </div>
+    </div>
 
-            // Mettez à jour la barre de progression et le texte avec la nouvelle valeur des calories
-            var recommendedCalories = {{ recommended_calories }}; // Assurez-vous que cette variable est définie dans le template
-            var progressBar = document.querySelector('.progress-bar');
-            progressBar.style.width = (newCalories / recommendedCalories) * 100 + '%';
-            progressBar.setAttribute('aria-valuenow', newCalories);
-            progressBar.textContent = newCalories + ' / ' + recommendedCalories;
+    <div class="mt-3">
+        <label for="potassium">Potassium:</label>
+        <div class="progress">
+            {% set recommended_potassium = nutrition_data.get(age_group, {}).get(sex, {}).get('Potassium', 0) %}
+            <div class="progress-bar" role="progressbar"
+                 style="width: {{ (user_data.get('potassium', 0) / recommended_potassium) * 100 }}%"
+                 aria-valuenow="{{ user_data.get('potassium', 0) }}"
+                 aria-valuemin="0" aria-valuemax="{{ recommended_potassium }}">
+                {{ user_data.get('potassium', 0) }} / {{ recommended_potassium }} mg
+            </div>
+        </div>
+    </div>
 
-            // Envoie la nouvelle valeur des calories au serveur (si nécessaire)
-            // ...
-        }
-function startNewDay() {
-    // Obtenir la valeur actuelle des calories
-    var currentCalories = parseInt(document.querySelector('.progress-bar').getAttribute('aria-valuenow'));
+<div class="mt-3">
+    <label for="zinc">Zinc:</label>
+    <div class="progress">
+        {% set recommended_zinc = nutrition_data.get(age_group, {}).get(sex, {}).get('Zinc', 0) %}
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ (user_data.get('zinc', 0) / recommended_zinc) * 100 }}%"
+             aria-valuenow="{{ user_data.get('zinc', 0) }}"
+             aria-valuemin="0" aria-valuemax="{{ recommended_zinc }}">
+            {{ user_data.get('zinc', 0) }} / {{ recommended_zinc }} mg
+        </div>
+    </div>
+</div>
 
-    // Mettre à jour la valeur des calories pour qu'elle soit zéro
-    updateCalories(-currentCalories);
+<div class="mt-3">
+    <label for="vitaminA">Vitamine A:</label>
+    <div class="progress">
+        {% set recommended_vitamin_a = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin A', 0) %}
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ (user_data.get('vitamin A', 0) / recommended_vitamin_a) * 100 }}%"
+             aria-valuenow="{{ user_data.get('vitamin A', 0) }}"
+             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_a }}">
+            {{ user_data.get('vitamin A', 0) }} / {{ recommended_vitamin_a }} mcg
+        </div>
+    </div>
+</div>
 
-    // Afficher le message de nouvelle journée
-    document.getElementById('newDayMessage').innerText = "Let's start a new day together!";
-}
+<div class="mt-3">
+    <label for="vitaminE">Vitamine E:</label>
+    <div class="progress">
+        {% set recommended_vitamin_e = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin E', 0) %}
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ (user_data.get('vitamin E', 0) / recommended_vitamin_e) * 100 }}%"
+             aria-valuenow="{{ user_data.get('vitamin E', 0) }}"
+             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_e }}">
+            {{ user_data.get('vitamin E', 0) }} / {{ recommended_vitamin_e }} mg
+        </div>
+    </div>
+</div>
 
-    </script>
+<div class="mt-3">
+    <label for="vitaminC">Vitamine C:</label>
+    <div class="progress">
+        {% set recommended_vitamin_c = nutrition_data.get(age_group, {}).get(sex, {}).get('Vitamin C', 0) %}
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ (user_data.get('vitamin C', 0) / recommended_vitamin_c) * 100 }}%"
+             aria-valuenow="{{ user_data.get('vitamin C', 0) }}"
+             aria-valuemin="0" aria-valuemax="{{ recommended_vitamin_c }}">
+            {{ user_data.get('vitamin C', 0) }} / {{ recommended_vitamin_c }} mg
+        </div>
+    </div>
+</div>
+
+
+    <div class="mt-3">
+        <form method="POST" action="{{ url_for('update_nutrition_route') }}">
+            <input type="number" name="change" placeholder="Nombre">
+            <input type="hidden" name="nutrient" value="calories"> <!-- changez pour proteins ou fats selon le cas -->
+            <button type="submit" class="btn btn-secondary">Modifier</button>
+        </form>
+    </div>
+
+    <div class="mt-3">
+        <form method="POST" action="{{ url_for('update_nutrition_route') }}">
+            <input type="number" name="change" placeholder="Nombre">
+            <input type="hidden" name="nutrient" value="proteins"> <!-- changez pour proteins ou fats selon le cas -->
+            <button type="submit" class="btn btn-secondary">Modifier</button>
+        </form>
+    </div>
+
+    <!-- Formulaire pour réinitialiser les valeurs nutritionnelles -->
+    <div class="mt-3">
+        <form method="POST" action="{{ url_for('reset_nutrition_route') }}">
+            <button type="submit" class="btn btn-primary">Nouvelle Journée</button>
+        </form>
+    </div>
 
 </div>
 {% endblock %}

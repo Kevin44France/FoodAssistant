@@ -9,7 +9,7 @@ randomFind = "recipes/random"
 
 
 def find_recipe_by_id(recipe_id):
-    with open('../Data/dataset.json', 'r') as file:
+    with open('../Data/dataset.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
         for recipe in data['recipes']:
             if recipe['id'] == recipe_id:
@@ -45,7 +45,7 @@ def search_page():
     dietary_restrictions = user_profile['dietaryRestrictions']
 
     # Load recipes
-    with open('../Data/dataset.json', 'r') as file:
+    with open('../Data/dataset.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
     # Filter recipes based on dietary restrictions
@@ -58,7 +58,7 @@ def search_page():
 @app.route('/recipe/<int:recipe_id>')
 def recipe_detail(recipe_id):
     # Load the recipes data
-    with open('../Data/dataset.json', 'r') as file:  # Change the file path if necessary
+    with open('../Data/dataset.json', 'r', encoding='utf-8') as file:  # Change the file path if necessary
         recipes_data = json.load(file)
 
     # Load the nutrition data
@@ -144,6 +144,53 @@ def update_calories():
 
     except Exception as e:
         return jsonify(success=False, error=str(e))
+
+
+def update_nutrition(user_data, nutrient, change):
+    user_data[nutrient] = max(user_data.get(nutrient, 0) + change, 0)
+
+
+def reset_nutrition(user_data):
+    for nutrient in ['calories', 'proteins', 'fats', 'carbs', 'calcium', 'iron', 'magnesium', 'potassium', 'zinc', 'vitamin A', 'vitamin E', 'vitamin C']:
+        user_data[nutrient] = 0
+
+
+@app.route('/update_nutrition', methods=['POST'])
+def update_nutrition_route():
+    user_data_path = '../Data/user_profile.json'
+    nutrient = request.form['nutrient']
+    change = int(request.form['change'])
+
+    try:
+        with open(user_data_path, 'r') as file:
+            user_data = json.load(file)
+
+        update_nutrition(user_data, nutrient, change)
+
+        with open(user_data_path, 'w') as file:
+            json.dump(user_data, file, indent=4)
+
+        return redirect(url_for('user_profile'))
+    except Exception as e:
+        return str(e), 500
+
+
+@app.route('/reset_nutrition', methods=['POST'])
+def reset_nutrition_route():
+    user_data_path = '../Data/user_profile.json'
+
+    try:
+        with open(user_data_path, 'r') as file:
+            user_data = json.load(file)
+
+        reset_nutrition(user_data)
+
+        with open(user_data_path, 'w') as file:
+            json.dump(user_data, file, indent=4)
+
+        return redirect(url_for('user_profile'))
+    except Exception as e:
+        return str(e), 500
 
 
 if __name__ == '__main__':

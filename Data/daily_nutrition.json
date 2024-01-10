@@ -2,6 +2,9 @@
   "4-8": {
     "Female": {
       "Calories": 1200,
+      "Protein": 180,
+      "Carbs": 420,
+      "Fat": 420,
       "Calcium": 1000,
       "Iron": 10,
       "Magnesium": 130,
@@ -13,6 +16,9 @@
     },
     "Male": {
       "Calories": 1400,
+      "Protein": 210,
+      "Carbs": 490,
+      "Fat": 490,
       "Calcium": 1000,
       "Iron": 10,
       "Magnesium": 130,
@@ -26,6 +32,9 @@
   "9-13": {
     "Female": {
       "Calories": 1600,
+      "Protein": 240,
+      "Carbs": 560,
+      "Fat": 560,
       "Calcium": 1300,
       "Iron": 8,
       "Magnesium": 240,
@@ -37,6 +46,9 @@
     },
     "Male": {
       "Calories": 1800,
+      "Protein": 270,
+      "Carbs": 630,
+      "Fat": 630,
       "Calcium": 1300,
       "Iron": 8,
       "Magnesium": 240,
@@ -50,6 +62,9 @@
   "14-18": {
     "Female": {
       "Calories": 1800,
+      "Protein": 270,
+      "Carbs": 630,
+      "Fat": 630,
       "Calcium": 1300,
       "Iron": 15,
       "Magnesium": 360,
@@ -61,6 +76,9 @@
     },
     "Male": {
       "Calories": 2200,
+      "Protein": 330,
+      "Carbs": 770,
+      "Fat": 770,
       "Calcium": 1300,
       "Iron": 11,
       "Magnesium": 410,
@@ -74,6 +92,9 @@
   "19-30": {
     "Female": {
       "Calories": 2000,
+      "Protein": 300,
+      "Carbs": 700,
+      "Fat": 700,
       "Calcium": 1000,
       "Iron": 18,
       "Magnesium": 310,
@@ -85,6 +106,9 @@
     },
     "Male": {
       "Calories": 2400,
+      "Protein": 360,
+      "Carbs": 840,
+      "Fat": 840,
       "Calcium": 1000,
       "Iron": 8,
       "Magnesium": 400,
@@ -98,6 +122,9 @@
   "31-50": {
     "Female": {
       "Calories": 1800,
+      "Protein": 270,
+      "Carbs": 630,
+      "Fat": 630,
       "Calcium": 1000,
       "Iron": 18,
       "Magnesium": 320,
@@ -109,6 +136,9 @@
     },
     "Male": {
       "Calories": 2200,
+      "Protein": 330,
+      "Carbs": 770,
+      "Fat": 770,
       "Calcium": 1000,
       "Iron": 8,
       "Magnesium": 420,
@@ -122,6 +152,9 @@
   "51+": {
     "Female": {
       "Calories": 1600,
+      "Protein": 240,
+      "Carbs": 560,
+      "Fat": 560,
       "Calcium": 1200,
       "Iron": 8,
       "Magnesium": 320,
@@ -133,6 +166,9 @@
     },
     "Male": {
       "Calories": 2000,
+      "Protein": 300,
+      "Carbs": 700,
+      "Fat": 700,
       "Calcium": 1200,
       "Iron": 8,
       "Magnesium": 420,
