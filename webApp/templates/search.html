@@ -18,4 +18,21 @@
     </div>
     {% endfor %}
 </div>
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('search_page', page=page-1) }}" class="btn btn-primary">← Précédent</a>
+    {% else %}
+    <button class="btn btn-primary btn-disabled" disabled>← Précédent</button>
+    {% endif %}
+
+    <!-- Affichage du numéro de page -->
+    <span class="page-number">Page {{ page }} sur {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+    <a href="{{ url_for('search_page', page=page+1) }}" class="btn btn-primary">Suivant →</a>
+    {% else %}
+    <button class="btn btn-primary btn-disabled" disabled>Suivant →</button>
+    {% endif %}
+</div>
 {% endblock %}

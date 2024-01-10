@@ -1,8 +1,12 @@
+body {
+    background-color: #f0eae3 !important;
+}
+
 .recipe-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 20px;
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 .recipe-card {
@@ -113,3 +117,17 @@
     }
 }
 
+.pagination {
+    justify-content: right;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.page-number {
+    margin: 0 10px; /* Ajoute un espace entre les boutons et le numéro de page */
+    /* Autres styles si nécessaire */
+}
+
+.hidden {
+    display: none;
+}

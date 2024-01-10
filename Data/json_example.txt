@@ -1,0 +1,22 @@
+{
+    "firstName": "Kevin",
+    "lastName": "Sen",
+    "sex": "Female",
+    "age": "10",
+    "dietaryRestrictions": [
+        "vegetarian",
+        "glutenFree"
+    ],
+    "proteins": 100,
+    "calories": 700,
+    "fats": 200,
+    "carbs": 70,
+    "calcium": 900,
+    "iron": 6,
+    "magnesium": 80,
+    "potassium": 500,
+    "zinc": 18,
+    "vitamin A": 150,
+    "vitamin E": 0,
+    "vitamin C": 15
+}
