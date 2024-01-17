@@ -52,7 +52,10 @@ cette aventure vers une vie plus saine et savoureuse avec FoodAssistant à vos c
 - https://rapidapi.com/spoonacular/api/recipe-food-nutrition l'API de
   recettes https://rapidapi.com/blog/build-food-website/ avec son tutoriel
 
-
+## Lancement de l'appplication :
+- Insallation des dépendances
+- run le fichier app.py situé dans le dossier webApp
+- 
 ## Dev :
 - Python 3.10
 - Flask pour la partie web
