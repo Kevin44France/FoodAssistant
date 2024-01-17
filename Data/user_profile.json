@@ -8,7 +8,7 @@
         "glutenFree"
     ],
     "proteins": 100,
-    "calories": 700,
+    "calories": 750,
     "fats": 200,
     "carbs": 70,
     "calcium": 900,
@@ -18,5 +18,27 @@
     "zinc": 18,
     "vitamin A": 150,
     "vitamin E": 0,
-    "vitamin C": 15
+    "vitamin C": 15,
+    "ingredients": [
+        {
+            "name": "alcohol",
+            "amount": 50.0,
+            "unit": "tsp"
+        },
+        {
+            "name": "basil oil",
+            "amount": 10.0,
+            "unit": "servings"
+        },
+        {
+            "name": "tomato",
+            "amount": 15.0,
+            "unit": "small"
+        },
+        {
+            "name": "banana",
+            "amount": 40.0,
+            "unit": ""
+        }
+    ]
 }
