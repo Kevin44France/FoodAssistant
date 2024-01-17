@@ -92,39 +92,82 @@ def recipe_detail(recipe_id):
 def user_profile():
     user_data_path = '../Data/user_profile.json'
     nutrition_data_path = '../Data/daily_nutrition.json'
-
+    dataset_path = '../Data/dataset.json'  # Assurez-vous que ce chemin est correct
 
     if request.method == 'POST':
-        user_data = {
-            'firstName': request.form.get('firstName'),
-            'lastName': request.form.get('lastName'),
-            'sex': request.form.get('sex'),
-            'age': request.form.get('age'),
-            'dietaryRestrictions': request.form.getlist('dietaryRestrictions')
-            # Cela recueille toutes les restrictions cochées
-        }
-
-        # Écrire les données dans le fichier JSON
-        with open(user_data_path, 'w') as file:
-            json.dump(user_data, file, indent=4)
-        return redirect(url_for('user_profile'))
+        # Si l'utilisateur soumet un ingrédient à ajouter
+        if 'ingredient_name' in request.form:
+            with open(user_data_path, 'r+') as file:
+                user_data = json.load(file)
+                if 'ingredients' not in user_data:
+                    user_data['ingredients'] = []
+                user_data['ingredients'].append({
+                    'name': request.form['ingredient_name'],
+                    'amount': float(request.form['ingredient_amount']),
+                    'unit': request.form['ingredient_unit']
+                })
+                file.seek(0)
+                json.dump(user_data, file, indent=4)
+                file.truncate()
+            return redirect(url_for('user_profile'))
+        # Si l'utilisateur met à jour ses informations de profil
+        else:
+            user_data = {
+                'firstName': request.form.get('firstName'),
+                'lastName': request.form.get('lastName'),
+                'sex': request.form.get('sex'),
+                'age': request.form.get('age'),
+                'dietaryRestrictions': request.form.getlist('dietaryRestrictions'),
+                # Vous pouvez ajouter ici les autres éléments comme les calories, etc.
+            }
+            with open(user_data_path, 'w') as file:
+                json.dump(user_data, file, indent=4)
+            return redirect(url_for('user_profile'))
 
     else:
-
-        # Charger les données nutritionnelles
-        with open(nutrition_data_path, 'r') as file:
+        with open(nutrition_data_path, 'r', encoding='utf-8') as file:
             nutrition_data = json.load(file)
-        # Lire les données existantes
+
+        with open(dataset_path, 'r', encoding='utf-8') as file:
+            dataset = json.load(file)
+            ingredient_units = {}
+
+            # Pour chaque recette dans le jeu de données, on s'assure également que l'ingrédient n'est pas vide
+            # et que les ingrédiens sont uniques
+
+            for recipe in dataset['recipes']:
+                for ingredient in recipe['extendedIngredients']:
+                    ingredient_name = ingredient.get('nameClean')
+                    ingredient_unit = ingredient['measures']['metric']['unitShort']
+                    if ingredient_name:
+                        if ingredient_name not in ingredient_units:
+                            ingredient_units[ingredient_name] = {'unit': ingredient_unit, 'count': 1}
+                        else:
+                            if ingredient_units[ingredient_name]['unit'] == ingredient_unit:
+                                ingredient_units[ingredient_name]['count'] += 1
+                            else:
+                                if ingredient_units[ingredient_name]['count'] < 2:
+                                    ingredient_units[ingredient_name] = {'unit': ingredient_unit, 'count': 1}
+
+        ingredients_list = sorted(ingredient_units.keys())
+
+        final_ingredient_units = {ingredient: unit_info['unit'] for ingredient, unit_info in ingredient_units.items()}
+
         try:
-            with open(user_data_path, 'r') as file:
+            with open(user_data_path, 'r', encoding='utf-8') as file:
                 user_data = json.load(file)
         except (FileNotFoundError, json.JSONDecodeError):
-            # Si le fichier n'existe pas ou est vide
             user_data = {}
 
         age_group = determine_age_group(int(user_data.get('age', 0)))
 
-        return render_template('user.html', user_data=user_data, nutrition_data=nutrition_data, age_group=age_group)
+        return render_template(
+            'user.html',
+            user_data=user_data,
+            nutrition_data=nutrition_data,
+            age_group=age_group,
+            ingredients=ingredients_list,
+            ingredient_units=final_ingredient_units)
 
 
 @app.route('/update_calories', methods=['POST'])
@@ -196,6 +239,54 @@ def reset_nutrition_route():
     except Exception as e:
         return str(e), 500
 
+
+@app.route('/add_ingredient', methods=['POST'])
+def add_ingredient():
+    user_data_path = '../Data/user_profile.json'
+
+    # Obtenez les données du formulaire
+    ingredient_name = request.form['ingredient_name']
+    ingredient_amount = float(request.form['ingredient_amount'])
+    ingredient_unit = request.form['ingredient_unit']
+
+    # Chargez les données utilisateur existantes
+    with open(user_data_path, 'r+') as file:
+        user_data = json.load(file)
+
+        # Ajoutez le nouvel ingrédient
+        if 'ingredients' not in user_data:
+            user_data['ingredients'] = []
+        user_data['ingredients'].append({
+            'name': ingredient_name,
+            'amount': ingredient_amount,
+            'unit': ingredient_unit
+        })
+
+        # Rembobinez le fichier et écrivez les données mises à jour
+        file.seek(0)
+        json.dump(user_data, file, indent=4)
+        file.truncate()  # Supprimez le reste du fichier si les nouvelles données sont plus courtes
+
+    return redirect(url_for('user_profile'))
+
+@app.route('/clear_ingredients', methods=['POST'])
+def clear_ingredients():
+    # Chemin vers le fichier JSON
+    json_file_path = '../Data/user_profile.json'
+
+    # Lire le fichier JSON
+    with open(json_file_path, 'r') as file:
+        data = json.load(file)
+
+    # Vider la liste des ingrédients
+    if 'ingredients' in data:
+        data['ingredients'] = []
+
+    # Réécrire le fichier JSON mis à jour
+    with open(json_file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+    return redirect(url_for('user_profile'))
 
 if __name__ == '__main__':
     app.run()
